@@ -1,18 +1,6 @@
-#Mood-Meal-Backend
-
-
-Deploy Link: 
-
-Base URL: https://mood-meal-backend.onrender.com
-Api Document: https://mood-meal-backend.onrender.com/api/v1/api-docs/#/
-
 
 Project Structure Documentation
 
-<<<<<<< HEAD
-
-=======
->>>>>>> main
 ```
 D:.
 │   .env                      # Environment variables
