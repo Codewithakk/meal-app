@@ -1,0 +1,26 @@
+# 🚀 Ignore dependencies
+node_modules/
+
+# 🔑 Ignore environment variables
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+
+# ⚙️ Ignore TypeScript build output
+dist/
+*.tsbuildinfo
+
+# 📝 Ignore logs & debugging
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# 💡 Ignore VSCode settings (optional)
+.vscode/
+
+# 📦 Ignore Render & build cache (optional)
+.cache/
