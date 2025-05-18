@@ -1,16 +1,18 @@
-import { Request } from "express";
+import { Request } from 'express'
 
 export interface AuthRequest extends Request {
-    user?: any;
+    user?: {
+        userId: string
+    }
 }
 
-declare module "express-serve-static-core" {
+declare module 'express' {
     interface Request {
         user?: {
-            userId: string;
+            userId: string
             id?: string
-            userEmail: string;
-        };
+            email?: string
+        }
     }
 }
 
@@ -18,7 +20,7 @@ declare module 'socket.io' {
     interface Socket {
         user?: {
             userId?: string
-        };
+        }
     }
 }
 export type THttpResponse = {

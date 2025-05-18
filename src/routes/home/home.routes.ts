@@ -1,10 +1,8 @@
-import { Router } from 'express';
-import { homeController } from '../../controllers/home/home.controller';
-import { authMiddleware } from '../../middlewares/auth.middleware';
-import { createRecipe } from '../../controllers/common.controller';
-import { review } from '../../controllers/review.controller';
+import { Router } from 'express'
+import { homeController } from '../../controllers/home/home.controller'
+import { authMiddleware } from '../../middlewares/auth.middleware'
 
-const router = Router();
+const router = Router()
 
 /**
  * @swagger
@@ -65,7 +63,7 @@ const router = Router();
  *       500:
  *         description: Internal server error
  */
-router.get("/", authMiddleware, homeController.heroAndTopMealOfDay);
+router.get('/', authMiddleware, homeController.heroAndTopMealOfDay)
 
 /**
  * @swagger
@@ -153,8 +151,8 @@ router.get("/", authMiddleware, homeController.heroAndTopMealOfDay);
  *                   type: string
  *                   example: "Internal Server Error"
  */
-router.get("/user/mood-goal", authMiddleware,homeController.getUserMoodGoals);
-router.post("share/:recipeId", authMiddleware,homeController.shareRecipe);
+router.get('/user/mood-goal', authMiddleware, homeController.getUserMoodGoals)
+router.post('share/:recipeId', authMiddleware, homeController.shareRecipe)
 
 /**
  * @swagger
@@ -168,7 +166,7 @@ router.post("share/:recipeId", authMiddleware,homeController.shareRecipe);
  *       500:
  *         description: Internal server error
  */
-router.get("/mealofday", authMiddleware,homeController.mealofday);
+router.get('/mealofday', authMiddleware, homeController.mealofday)
 
 /**
  * @swagger
@@ -191,7 +189,7 @@ router.get("/mealofday", authMiddleware,homeController.mealofday);
  *       500:
  *         description: Internal server error
  */
-router.get("/recipeDetails", authMiddleware,homeController.recipeDetail);
+router.get('/recipeDetails', authMiddleware, homeController.recipeDetail)
 
 /**
  * @swagger
@@ -209,10 +207,9 @@ router.get("/recipeDetails", authMiddleware,homeController.recipeDetail);
  *       500:
  *         description: Internal server error
  */
-router.get("/relatedMostLoved", authMiddleware, homeController.relatedMostLovedMeal);
-router.get("/relatedmeals", authMiddleware, homeController.relatedMeals);
-router.get("/mostLovedmeals", authMiddleware, homeController.MostLovedMeal);
-
+router.get('/relatedMostLoved', authMiddleware, homeController.relatedMostLovedMeal)
+router.get('/relatedmeals', authMiddleware, homeController.relatedMeals)
+router.get('/mostLovedmeals', authMiddleware, homeController.MostLovedMeal)
 
 // /**
 //  * @swagger
@@ -244,7 +241,7 @@ router.get("/mostLovedmeals", authMiddleware, homeController.MostLovedMeal);
  *       500:
  *         description: Internal server error
  */
-router.get("/favorite", authMiddleware, homeController.favoriteMeals);
-router.put("/favorite/:recipeId", authMiddleware, homeController.savedFavoriteMeal);
+router.get('/favorite', authMiddleware, homeController.favoriteMeals)
+router.put('/favorite/:recipeId', authMiddleware, homeController.savedFavoriteMeal)
 
-export default router;
+export default router

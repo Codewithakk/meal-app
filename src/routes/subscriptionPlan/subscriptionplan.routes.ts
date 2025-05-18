@@ -1,10 +1,16 @@
-import { Router } from "express";
-import { authMiddleware } from "../../middlewares/auth.middleware";
-import { createSubscriptionPlan, deleteSubscriptionPlan, getSubscriptionPlanById, getSubscriptionPlans, updateSubscriptionPlan } from "../../controllers/subscriptionPlan/subsciption.controller";
-import validateRequest from "../../middlewares/validateRequest";
-import { subscriptionPlanSchema } from "../../validations/subscription.validation";
+import { Router } from 'express'
+import { authMiddleware } from '../../middlewares/auth.middleware'
+import {
+    createSubscriptionPlan,
+    deleteSubscriptionPlan,
+    getSubscriptionPlanById,
+    getSubscriptionPlans,
+    updateSubscriptionPlan
+} from '../../controllers/subscriptionPlan/subsciption.controller'
+import validateRequest from '../../middlewares/validateRequest'
+import { subscriptionPlanSchema } from '../../validations/subscription.validation'
 
-const router = Router();
+const router = Router()
 
 /**
  * @swagger
@@ -65,7 +71,7 @@ const router = Router();
  *       401:
  *         description: Unauthorized
  */
-router.post('/plan', authMiddleware, validateRequest(subscriptionPlanSchema), createSubscriptionPlan);
+router.post('/plan', authMiddleware, validateRequest(subscriptionPlanSchema), createSubscriptionPlan)
 
 /**
  * @swagger
@@ -113,7 +119,7 @@ router.post('/plan', authMiddleware, validateRequest(subscriptionPlanSchema), cr
  *                 example: false
  *
  */
-router.patch('/plan/:planId', authMiddleware, validateRequest(subscriptionPlanSchema), updateSubscriptionPlan);
+router.patch('/plan/:planId', authMiddleware, validateRequest(subscriptionPlanSchema), updateSubscriptionPlan)
 
 /**
  * @swagger
@@ -137,7 +143,7 @@ router.patch('/plan/:planId', authMiddleware, validateRequest(subscriptionPlanSc
  *       404:
  *         description: Subscription plan not found
  */
-router.delete('/plan/:planId', authMiddleware, deleteSubscriptionPlan);
+router.delete('/plan/:planId', authMiddleware, deleteSubscriptionPlan)
 
 /**
  * @swagger
@@ -152,7 +158,7 @@ router.delete('/plan/:planId', authMiddleware, deleteSubscriptionPlan);
  *       200:
  *         description: List of subscription plans
  */
-router.get('/plan', authMiddleware, getSubscriptionPlans);
+router.get('/plan', authMiddleware, getSubscriptionPlans)
 
 /**
  * @swagger
@@ -176,6 +182,6 @@ router.get('/plan', authMiddleware, getSubscriptionPlans);
  *       404:
  *         description: Subscription plan not found
  */
-router.get('/plan/:planId', authMiddleware, getSubscriptionPlanById);
+router.get('/plan/:planId', authMiddleware, getSubscriptionPlanById)
 
-export default router;
+export default router

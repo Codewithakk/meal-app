@@ -1,7 +1,7 @@
-import { Router } from "express";
-import { review } from "../controllers/review.controller"; // ✅ Correct import
-import { authMiddleware } from "../middlewares/auth.middleware";
-import upload from "../config/multerConfig";
+import { Router } from 'express'
+import { review } from '../controllers/review.controller' // ✅ Correct import
+import { authMiddleware } from '../middlewares/auth.middleware'
+import upload from '../config/multerConfig'
 
 /**
  * @swagger
@@ -10,7 +10,7 @@ import upload from "../config/multerConfig";
  *   description: User reviews management for recipes
  */
 
-const route = Router();
+const route = Router()
 
 /**
  * @swagger
@@ -59,7 +59,7 @@ const route = Router();
  *       404:
  *         description: Recipe or user not found
  */
-route.post("/recipes/:recipeId/reviews", upload.array('imgs',10),authMiddleware, review.addReview);
+route.post('/recipes/:recipeId/reviews', upload.array('imgs', 10), authMiddleware, review.addReview)
 
 /**
  * @swagger
@@ -71,7 +71,7 @@ route.post("/recipes/:recipeId/reviews", upload.array('imgs',10),authMiddleware,
  *       200:
  *         description: A list of all reviews
  */
-route.get("/", review.allReview);
+route.get('/', review.allReview)
 
 /**
  * @swagger
@@ -92,10 +92,9 @@ route.get("/", review.allReview);
  *       404:
  *         description: Recipe not found
  */
-route.get("/recipes/:recipeId/reviews", review.getReviewsByRecipe);
-route.get("/recipes/:recipeId/reviews/comments", review.getReviewsWithComments);
-route.get("/recipes/:recipeId/reviews/photos", review.getReviewsWithPhotos);
-
+route.get('/recipes/:recipeId/reviews', review.getReviewsByRecipe)
+route.get('/recipes/:recipeId/reviews/comments', review.getReviewsWithComments)
+route.get('/recipes/:recipeId/reviews/photos', review.getReviewsWithPhotos)
 
 /**
  * @swagger
@@ -111,7 +110,7 @@ route.get("/recipes/:recipeId/reviews/photos", review.getReviewsWithPhotos);
  *       404:
  *         description: User not found or no reviews available
  */
-route.get("/users", authMiddleware, review.getReviewsByUser);
+route.get('/users', authMiddleware, review.getReviewsByUser)
 
 /**
  * @swagger
@@ -153,7 +152,7 @@ route.get("/users", authMiddleware, review.getReviewsByUser);
  *       404:
  *         description: Review not found
  */
-route.patch("/:reviewId", upload.array('imgs'),review.updateReview);
+route.patch('/:reviewId', upload.array('imgs'), review.updateReview)
 
 /**
  * @swagger
@@ -174,6 +173,6 @@ route.patch("/:reviewId", upload.array('imgs'),review.updateReview);
  *       404:
  *         description: Review not found
  */
-route.delete("/:reviewId", review.deleteReview);
+route.delete('/:reviewId', review.deleteReview)
 
-export default route;
+export default route

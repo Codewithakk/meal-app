@@ -14,18 +14,18 @@
 //   }
 // };
 
-import together from "../config/smartMeal"; // Import Together AI configuration
+import together from '../config/smartMeal' // Import Together AI configuration
 
 export const getAIResponse = async (message: string): Promise<string> => {
-  try {
-    const response = await together.chat.completions.create({
-      model: "meta-llama/Llama-3.3-70B-Instruct-Turbo", // Adjust model as needed
-      messages: [{ role: "user", content: message }],
-    });
+    try {
+        const response = await together.chat.completions.create({
+            model: 'meta-llama/Llama-3.3-70B-Instruct-Turbo', // Adjust model as needed
+            messages: [{ role: 'user', content: message }]
+        })
 
-    return response?.choices?.[0]?.message?.content ?? "I couldn't process your request.";
-  } catch (error) {
-    console.error("Error generating AI response:", error);
-    return "Sorry, something went wrong.";
-  }
-};
+        return response?.choices?.[0]?.message?.content ?? "I couldn't process your request."
+    } catch (error) {
+        console.error('Error generating AI response:', error)
+        return 'Sorry, something went wrong.'
+    }
+}

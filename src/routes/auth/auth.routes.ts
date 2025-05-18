@@ -1,18 +1,18 @@
-import { Router } from "express";
-import authController from "../../controllers/auth/auth.controller";
-import { authMiddleware } from "../../middlewares/auth.middleware";
-import upload from "../../config/multerConfig";
-import validateRequest from "../../middlewares/validateRequest";
+import { Router } from 'express'
+import authController from '../../controllers/auth/auth.controller'
+import { authMiddleware } from '../../middlewares/auth.middleware'
+import upload from '../../config/multerConfig'
+import validateRequest from '../../middlewares/validateRequest'
 import {
-  registerSchema,
-  resetPasswordSchema,
-  loginSchema,
-  forgotPasswordSchema,
-  verifyOtpSchema,
-  googleAuthTokenSchema,
-} from "../../validations/auth.validation";
+    registerSchema,
+    resetPasswordSchema,
+    loginSchema,
+    forgotPasswordSchema,
+    verifyOtpSchema,
+    googleAuthTokenSchema
+} from '../../validations/auth.validation'
 
-const router = Router();
+const router = Router()
 
 /**
  * @swagger
@@ -68,12 +68,7 @@ const router = Router();
  *       400:
  *         description: Bad request
  */
-router.post(
-  "/signup",
-  upload.single("userProfile"),
-  validateRequest(registerSchema),
-  authController.signup
-);
+router.post('/signup', upload.single('userProfile'), validateRequest(registerSchema), authController.signup)
 
 /**
  * @swagger
@@ -103,17 +98,16 @@ router.post(
  *       400:
  *         description: Invalid credentials
  */
-router.post("/signin", validateRequest(loginSchema), authController.signin);
+router.post('/signin', validateRequest(loginSchema), authController.signin)
 
-
-router.post("/google", validateRequest(googleAuthTokenSchema), authController.googleLogin)
+router.post('/google', validateRequest(googleAuthTokenSchema), authController.googleLogin)
 
 /**
  * @swagger
  * /api/v1/auth/logout:
  *   post:
  *     summary: Log out the current user
- *     tags: 
+ *     tags:
  *       - Auth
  *     security:
  *       - bearerAuth: []  # 🔹 Requires Authorization Header with Bearer Token
@@ -151,7 +145,7 @@ router.post("/google", validateRequest(googleAuthTokenSchema), authController.go
  *                   example: "Internal Server Error"
  */
 
-router.post("/logout", authMiddleware, authController.logout);
+router.post('/logout', authMiddleware, authController.logout)
 
 /**
  * @swagger
@@ -177,11 +171,7 @@ router.post("/logout", authMiddleware, authController.logout);
  *       400:
  *         description: User not found
  */
-router.post(
-  "/forgot-password",
-  validateRequest(forgotPasswordSchema),
-  authController.forgotPassword
-);
+router.post('/forgot-password', validateRequest(forgotPasswordSchema), authController.forgotPassword)
 
 /**
  * @swagger
@@ -207,7 +197,7 @@ router.post(
  *       400:
  *         description: Invalid or expired OTP
  */
-router.post("/verify", validateRequest(verifyOtpSchema), authController.verifyOtp);
+router.post('/verify', validateRequest(verifyOtpSchema), authController.verifyOtp)
 
 /**
  * @swagger
@@ -233,19 +223,14 @@ router.post("/verify", validateRequest(verifyOtpSchema), authController.verifyOt
  *       400:
  *         description: OTP verification required
  */
-router.post(
-  "/reset-password",
-  authMiddleware,
-  validateRequest(resetPasswordSchema),
-  authController.resetPassword
-);
+router.post('/reset-password', authMiddleware, validateRequest(resetPasswordSchema), authController.resetPassword)
 
 // router.put(
 //   "/edit",
 //   authController.editUserProfile
 // );
 
-router.post("/refresh-token", authController.refreshToken);
+router.post('/refresh-token', authController.refreshToken)
 
-router.get("/open-app", authController.openApp);
-export default router;
+router.get('/open-app', authController.openApp)
+export default router

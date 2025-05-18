@@ -1,8 +1,8 @@
-import { Router } from "express";
-import { mealsController } from "../../controllers/meal/meal.controller";
-import { authMiddleware } from "../../middlewares/auth.middleware";
+import { Router } from 'express'
+import { mealsController } from '../../controllers/meal/meal.controller'
+import { authMiddleware } from '../../middlewares/auth.middleware'
 
-const router = Router();
+const router = Router()
 
 /**
  * @swagger
@@ -56,7 +56,7 @@ const router = Router();
  *       500:
  *         description: Internal Server Error
  */
-router.get("/",authMiddleware,mealsController.mealtype);
+router.get('/', authMiddleware, mealsController.mealtype)
 
 /**
  * @swagger
@@ -97,8 +97,8 @@ router.get("/",authMiddleware,mealsController.mealtype);
  *       500:
  *         description: Internal Server Error
  */
-router.get("/saved", authMiddleware,mealsController.getSavedMeals);
-router.post("/save-meal/:mealId", authMiddleware, mealsController.manageSavedMeals);
-router.get("/grocery-list", authMiddleware, mealsController.groceryList);
+router.get('/saved', authMiddleware, mealsController.getSavedMeals)
+router.post('/save-meal/:mealId', authMiddleware, mealsController.manageSavedMeals)
+router.get('/grocery-list', authMiddleware, mealsController.groceryList)
 
-export default router;
+export default router

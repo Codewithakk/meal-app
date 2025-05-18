@@ -17,23 +17,21 @@
 // //       }
 // // };
 
+import jwt from 'jsonwebtoken'
 
-import jwt from "jsonwebtoken";
-
-const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret";
-const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET || "your_refresh_secret";
-const JWT_EXPIRES_IN = "1h"; // Short-lived access token
-const EXPIRES_IN = "7d"; // Refresh token lasts 7 days
+const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret'
+const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET || 'your_refresh_secret'
+const EXPIRES_IN = '7d' // Refresh token lasts 7 days
 
 export const generateToken = (userId: string) => {
-  const token = jwt.sign({ userId }, JWT_SECRET, { expiresIn: EXPIRES_IN });
-  const refreshToken = jwt.sign({ userId }, JWT_REFRESH_SECRET, { expiresIn: EXPIRES_IN });
+    const token = jwt.sign({ userId }, JWT_SECRET, { expiresIn: EXPIRES_IN })
+    const refreshToken = jwt.sign({ userId }, JWT_REFRESH_SECRET, { expiresIn: EXPIRES_IN })
 
-  return { token, refreshToken };
-};
+    return { token, refreshToken }
+}
 
 export const generateTokenByShortTime = (userId: string, time: number) => {
-  const token = jwt.sign({ userId }, JWT_SECRET, { expiresIn: time });
+    const token = jwt.sign({ userId }, JWT_SECRET, { expiresIn: time })
 
-  return { token };
-};
+    return { token }
+}

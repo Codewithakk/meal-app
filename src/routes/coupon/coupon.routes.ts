@@ -1,10 +1,10 @@
-import { Router } from "express";
-import { authMiddleware } from '../../middlewares/auth.middleware';
-import { claimReward, createCoupon, deleteCoupon, deleteManyCoupon, getCouponList, updateCoupon } from "../../controllers/coupon/coupon.controller";
-import validateRequest from "../../middlewares/validateRequest";
-import { createCouponSchema, updateCouponSchema, claimRewardSchema } from "../../validations/coupon.validation";
+import { Router } from 'express'
+import { authMiddleware } from '../../middlewares/auth.middleware'
+import { claimReward, createCoupon, deleteCoupon, deleteManyCoupon, getCouponList, updateCoupon } from '../../controllers/coupon/coupon.controller'
+import validateRequest from '../../middlewares/validateRequest'
+import { createCouponSchema, updateCouponSchema, claimRewardSchema } from '../../validations/coupon.validation'
 
-const router = Router();
+const router = Router()
 /**
  * @swagger
  * tags:
@@ -77,7 +77,7 @@ const router = Router();
  *       401:
  *         description: Unauthorized
  */
-router.post("/", authMiddleware, validateRequest(createCouponSchema), createCoupon);
+router.post('/', authMiddleware, validateRequest(createCouponSchema), createCoupon)
 
 /**
  * @swagger
@@ -146,7 +146,7 @@ router.post("/", authMiddleware, validateRequest(createCouponSchema), createCoup
  *       404:
  *         description: Coupon not found
  */
-router.patch("/:couponId", authMiddleware, validateRequest(updateCouponSchema), updateCoupon);
+router.patch('/:couponId', authMiddleware, validateRequest(updateCouponSchema), updateCoupon)
 
 /**
  * @swagger
@@ -184,7 +184,7 @@ router.patch("/:couponId", authMiddleware, validateRequest(updateCouponSchema), 
  *       404:
  *         description: Coupon not found
  */
-router.delete("/:couponId", authMiddleware, deleteCoupon);
+router.delete('/:couponId', authMiddleware, deleteCoupon)
 
 /**
  * @swagger
@@ -233,7 +233,7 @@ router.delete("/:couponId", authMiddleware, deleteCoupon);
  *       401:
  *         description: Unauthorized
  */
-router.delete("/delete/many", authMiddleware, deleteManyCoupon);
+router.delete('/delete/many', authMiddleware, deleteManyCoupon)
 
 /**
  * @swagger
@@ -304,7 +304,7 @@ router.delete("/delete/many", authMiddleware, deleteManyCoupon);
  *       401:
  *         description: Unauthorized
  */
-router.get("/list", authMiddleware, getCouponList);
+router.get('/list', authMiddleware, getCouponList)
 
 /**
  * @swagger
@@ -354,6 +354,6 @@ router.get("/list", authMiddleware, getCouponList);
  *       404:
  *         description: Coupon not found
  */
-router.post("/:couponId/claim_reward", authMiddleware, validateRequest(claimRewardSchema), claimReward)
+router.post('/:couponId/claim_reward', authMiddleware, validateRequest(claimRewardSchema), claimReward)
 
-export default router;
+export default router

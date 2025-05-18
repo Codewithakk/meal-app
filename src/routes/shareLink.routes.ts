@@ -1,8 +1,8 @@
-import express from "express";
-import { shareLink } from "../controllers/socialmedia.controller";
+import express from 'express'
+import { shareLink } from '../controllers/socialmedia.controller'
 
-const router = express.Router();
+const router = express.Router()
 
-router.get("/", shareLink);
+router.get('/', shareLink)
 
-export default router;
+export default router

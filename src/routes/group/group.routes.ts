@@ -1,11 +1,24 @@
-import { Router } from "express";
-import { authMiddleware } from "../../middlewares/auth.middleware";
-import { addUserToGroup, createGroup, deleteGroup, deleteGroupImage, getGroupByJoinList, getGroupList, getGroupUserList, joinAndLeftGroup, joinGroup, leaveGroup, removeUserToGroup, updateGroup } from "../../controllers/community/group.controller";
-import validateRequest from "../../middlewares/validateRequest";
-import { addGroupSchema, addGroupUserSchema } from "../../validations/group.validation";
-import upload from "../../config/multerConfig";
+import { Router } from 'express'
+import { authMiddleware } from '../../middlewares/auth.middleware'
+import {
+    addUserToGroup,
+    createGroup,
+    deleteGroup,
+    deleteGroupImage,
+    getGroupByJoinList,
+    getGroupList,
+    getGroupUserList,
+    joinAndLeftGroup,
+    joinGroup,
+    leaveGroup,
+    removeUserToGroup,
+    updateGroup
+} from '../../controllers/community/group.controller'
+import validateRequest from '../../middlewares/validateRequest'
+import { addGroupSchema, addGroupUserSchema } from '../../validations/group.validation'
+import upload from '../../config/multerConfig'
 
-const router = Router();
+const router = Router()
 
 /**
  * @swagger
@@ -51,7 +64,7 @@ const router = Router();
  *       401:
  *         description: Unauthorized - Missing or invalid token
  */
-router.post('/', authMiddleware, upload.single("groupProfile"), validateRequest(addGroupSchema), createGroup);
+router.post('/', authMiddleware, upload.single('groupProfile'), validateRequest(addGroupSchema), createGroup)
 
 /**
  * @swagger
@@ -90,7 +103,7 @@ router.post('/', authMiddleware, upload.single("groupProfile"), validateRequest(
  *       404:
  *         description: Group not found
  */
-router.patch('/:groupId', authMiddleware, upload.single("groupProfile"), validateRequest(addGroupSchema), updateGroup);
+router.patch('/:groupId', authMiddleware, upload.single('groupProfile'), validateRequest(addGroupSchema), updateGroup)
 
 /**
  * @swagger
@@ -154,7 +167,7 @@ router.patch('/:groupId', authMiddleware, upload.single("groupProfile"), validat
  *       404:
  *         description: Group not found
  */
-router.patch('/:groupId/user', authMiddleware, validateRequest(addGroupUserSchema), addUserToGroup);
+router.patch('/:groupId/user', authMiddleware, validateRequest(addGroupUserSchema), addUserToGroup)
 
 /**
  * @swagger
@@ -208,7 +221,7 @@ router.patch('/:groupId/user', authMiddleware, validateRequest(addGroupUserSchem
  *       500:
  *         description: Internal server error
  */
-router.patch('/:groupId/user/remove', authMiddleware, removeUserToGroup);
+router.patch('/:groupId/user/remove', authMiddleware, removeUserToGroup)
 
 /**
  * @swagger
@@ -249,7 +262,7 @@ router.patch('/:groupId/user/remove', authMiddleware, removeUserToGroup);
  *       404:
  *         description: Group not found
  */
-router.delete('/:groupId', authMiddleware, deleteGroup);
+router.delete('/:groupId', authMiddleware, deleteGroup)
 
 /**
  * @swagger
@@ -290,7 +303,7 @@ router.delete('/:groupId', authMiddleware, deleteGroup);
  *       404:
  *         description: Group not found
  */
-router.delete('/:groupId/image', authMiddleware, deleteGroupImage);
+router.delete('/:groupId/image', authMiddleware, deleteGroupImage)
 
 /**
  * @swagger
@@ -329,7 +342,7 @@ router.delete('/:groupId/image', authMiddleware, deleteGroupImage);
  *       404:
  *         description: Group not found
  */
-router.patch('/:groupId/join', authMiddleware, joinGroup);
+router.patch('/:groupId/join', authMiddleware, joinGroup)
 
 /**
  * @swagger
@@ -390,7 +403,7 @@ router.patch('/:groupId/join', authMiddleware, joinGroup);
  *       404:
  *         description: Group not found
  */
-router.patch('/:groupId', authMiddleware, joinAndLeftGroup);
+router.patch('/:groupId', authMiddleware, joinAndLeftGroup)
 
 /**
  * @swagger
@@ -429,7 +442,7 @@ router.patch('/:groupId', authMiddleware, joinAndLeftGroup);
  *       404:
  *         description: Group not found
  */
-router.patch('/:groupId/leave', authMiddleware, leaveGroup);
+router.patch('/:groupId/leave', authMiddleware, leaveGroup)
 
 /**
  * @swagger
@@ -477,7 +490,7 @@ router.patch('/:groupId/leave', authMiddleware, leaveGroup);
  *       401:
  *         description: Unauthorized
  */
-router.get('/list', authMiddleware, getGroupList);
+router.get('/list', authMiddleware, getGroupList)
 
 /**
  * @swagger
@@ -525,7 +538,7 @@ router.get('/list', authMiddleware, getGroupList);
  *       401:
  *         description: Unauthorized - Invalid or missing token
  */
-router.get('/join/list', authMiddleware, getGroupByJoinList);
+router.get('/join/list', authMiddleware, getGroupByJoinList)
 
 /**
  * @swagger
@@ -581,6 +594,6 @@ router.get('/join/list', authMiddleware, getGroupByJoinList);
  *       404:
  *         description: Group not found
  */
-router.get('/:groupId/user/list', authMiddleware, getGroupUserList);
+router.get('/:groupId/user/list', authMiddleware, getGroupUserList)
 
-export default router;
+export default router

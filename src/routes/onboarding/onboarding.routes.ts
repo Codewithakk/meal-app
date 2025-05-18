@@ -1,12 +1,11 @@
-import { Router } from "express";
-import { onboardingController } from "../../controllers/onboarding/onboarding.controller";
-import { authMiddleware } from '../../middlewares/auth.middleware';
-import upload from "../../config/multerConfig";
-import validateRequest from "../../middlewares/validateRequest";
-import { profileDetailsSchema } from "../../validations/profileDetails.validation";
-import { GetAllmoodGoals, moodGoals } from "../../controllers/streak/streak.controller";
+import { Router } from 'express'
+import { onboardingController } from '../../controllers/onboarding/onboarding.controller'
+import { authMiddleware } from '../../middlewares/auth.middleware'
+import validateRequest from '../../middlewares/validateRequest'
+import { profileDetailsSchema } from '../../validations/profileDetails.validation'
+import { GetAllmoodGoals, moodGoals } from '../../controllers/streak/streak.controller'
 
-const router = Router();
+const router = Router()
 /**
  * @swagger
  * tags:
@@ -41,8 +40,7 @@ const router = Router();
  *       "404":
  *         description: User not found
  */
-router.put("/dietType", authMiddleware, onboardingController.selectDietType); // Select Diet type
-
+router.put('/dietType', authMiddleware, onboardingController.selectDietType) // Select Diet type
 
 /**
  * @swagger
@@ -58,7 +56,7 @@ router.put("/dietType", authMiddleware, onboardingController.selectDietType); //
  *       404:
  *         description: User not found
  */
-router.get("/dietType", onboardingController.getAllDietType);
+router.get('/dietType', onboardingController.getAllDietType)
 
 /**
  * @swagger
@@ -88,7 +86,7 @@ router.get("/dietType", onboardingController.getAllDietType);
  *       404:
  *         description: Some allergies not found or User not found
  */
-router.put("/allergies", authMiddleware, onboardingController.selectAllergies);
+router.put('/allergies', authMiddleware, onboardingController.selectAllergies)
 
 /**
  * @swagger
@@ -126,7 +124,7 @@ router.put("/allergies", authMiddleware, onboardingController.selectAllergies);
  *         description: Internal server error.
  */
 
-router.get("/allergies", onboardingController.getAllAllergies); // Get all Allergies
+router.get('/allergies', onboardingController.getAllAllergies) // Get all Allergies
 
 /**
  * @swagger
@@ -167,7 +165,7 @@ router.get("/allergies", onboardingController.getAllAllergies); // Get all Aller
  *         description: Internal server error.
  */
 
-router.get("/mood-goal", authMiddleware, GetAllmoodGoals);
+router.get('/mood-goal', authMiddleware, GetAllmoodGoals)
 
 /**
  * @swagger
@@ -193,7 +191,7 @@ router.get("/mood-goal", authMiddleware, GetAllmoodGoals);
  *       400:
  *         description: Invalid request
  */
-router.put("/mood-goal/:moodGoalId", authMiddleware, moodGoals);
+router.put('/mood-goal/:moodGoalId', authMiddleware, moodGoals)
 
 /**
  * @swagger
@@ -207,7 +205,7 @@ router.put("/mood-goal/:moodGoalId", authMiddleware, moodGoals);
  *       200:
  *         description: User profile details retrieved
  */
-router.get("/profile-details", authMiddleware, onboardingController.profileDetails);
+router.get('/profile-details', authMiddleware, onboardingController.profileDetails)
 
 /**
  * @swagger
@@ -241,8 +239,7 @@ router.get("/profile-details", authMiddleware, onboardingController.profileDetai
  *       404:
  *         description: User not found
  */
-router.put("/profile-details", authMiddleware, validateRequest(profileDetailsSchema), onboardingController.profileUpdate);
-
+router.put('/profile-details', authMiddleware, validateRequest(profileDetailsSchema), onboardingController.profileUpdate)
 
 /**
  * @swagger
@@ -268,7 +265,7 @@ router.put("/profile-details", authMiddleware, validateRequest(profileDetailsSch
  *       400:
  *         description: Invalid request data
  */
-router.put("/activity-level/:activityLevelid", authMiddleware, onboardingController.activityLevel);
+router.put('/activity-level/:activityLevelid', authMiddleware, onboardingController.activityLevel)
 
 /**
  * @swagger
@@ -333,6 +330,6 @@ router.put("/activity-level/:activityLevelid", authMiddleware, onboardingControl
  *                   example: "Internal server error"
  */
 
-router.get("/activity-level", onboardingController.getAllactivityLevel);
+router.get('/activity-level', onboardingController.getAllactivityLevel)
 
-export default router;
+export default router

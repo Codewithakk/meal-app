@@ -1,24 +1,24 @@
-import { Router } from "express";
+import { Router } from 'express'
 import {
-  createDietType,
-  updateDietType,
-  createFoodAllergy,
-  updateFoodAllergy,
-  createMoodGoal,
-  updateMoodGoal,
-  createActivityLevel,
-  updateActivityLevel,
-  createRecipe,
-  updateRecipe,
-  deleteRecipe,
-  deleteRecipeImages,
-} from "../controllers/common.controller";
-import upload from "../config/multerConfig";
-import { authMiddleware } from "../middlewares/auth.middleware";
-import validateRequest from "../middlewares/validateRequest";
-import { recipeSchema } from "../validations/recipe.validation";
+    createDietType,
+    updateDietType,
+    createFoodAllergy,
+    updateFoodAllergy,
+    createMoodGoal,
+    updateMoodGoal,
+    createActivityLevel,
+    updateActivityLevel,
+    createRecipe,
+    updateRecipe,
+    deleteRecipe,
+    deleteRecipeImages
+} from '../controllers/common.controller'
+import upload from '../config/multerConfig'
+import { authMiddleware } from '../middlewares/auth.middleware'
+import validateRequest from '../middlewares/validateRequest'
+import { recipeSchema } from '../validations/recipe.validation'
 
-const router = Router();
+const router = Router()
 
 /**
  * @swagger
@@ -26,7 +26,6 @@ const router = Router();
  *   name: Common
  *   description: API endpoints for managing common entities
  */
-
 
 /** ========================== Diet Type Routes ========================== **/
 /**
@@ -49,7 +48,7 @@ const router = Router();
  *       500:
  *         description: Internal server error
  */
-router.post("/dietTypes", upload.single("img"), createDietType);
+router.post('/dietTypes', upload.single('img'), createDietType)
 
 /**
  * @swagger
@@ -78,7 +77,7 @@ router.post("/dietTypes", upload.single("img"), createDietType);
  *       500:
  *         description: Internal server error
  */
-router.put("/dietTypes", upload.single("img"), updateDietType); // Update by ID
+router.put('/dietTypes', upload.single('img'), updateDietType) // Update by ID
 
 /** ========================== Food Allergy Routes ========================== **/
 
@@ -98,7 +97,7 @@ router.put("/dietTypes", upload.single("img"), updateDietType); // Update by ID
  *       201:
  *         description: FoodAllergy created successfully
  */
-router.post("/foodallergies", upload.single("img"), createFoodAllergy);  // Create
+router.post('/foodallergies', upload.single('img'), createFoodAllergy) // Create
 
 /**
  * @swagger
@@ -122,7 +121,7 @@ router.post("/foodallergies", upload.single("img"), createFoodAllergy);  // Crea
  *       200:
  *         description: FoodAllergy updated successfully
  */
-router.put("/foodallergies/:id", upload.single("img"), updateFoodAllergy); // Update by ID
+router.put('/foodallergies/:id', upload.single('img'), updateFoodAllergy) // Update by ID
 
 /** ========================== Mood Goal Routes ========================== **/
 
@@ -142,7 +141,7 @@ router.put("/foodallergies/:id", upload.single("img"), updateFoodAllergy); // Up
  *       201:
  *         description: MoodGoal created successfully
  */
-router.post("/moodgoals", upload.single("emoji"), createMoodGoal);
+router.post('/moodgoals', upload.single('emoji'), createMoodGoal)
 
 /**
  * @swagger
@@ -166,7 +165,7 @@ router.post("/moodgoals", upload.single("emoji"), createMoodGoal);
  *       200:
  *         description: MoodGoal updated successfully
  */
-router.put("/moodgoals/:id", upload.single("emoji"), updateMoodGoal); // Update by ID
+router.put('/moodgoals/:id', upload.single('emoji'), updateMoodGoal) // Update by ID
 
 /** ========================== Activity Level Routes ========================== **/
 
@@ -186,7 +185,7 @@ router.put("/moodgoals/:id", upload.single("emoji"), updateMoodGoal); // Update 
  *       201:
  *         description: ActivityLevel created successfully
  */
-router.post("/activitylevels", createActivityLevel);  // Create
+router.post('/activitylevels', createActivityLevel) // Create
 
 /**
  * @swagger
@@ -210,7 +209,7 @@ router.post("/activitylevels", createActivityLevel);  // Create
  *       200:
  *         description: ActivityLevel updated successfully
  */
-router.put("/activitylevels/:id", updateActivityLevel); // Update by ID
+router.put('/activitylevels/:id', updateActivityLevel) // Update by ID
 
 /**
  * @swagger
@@ -254,12 +253,12 @@ router.put("/activitylevels/:id", updateActivityLevel); // Update by ID
  *       500:
  *         description: Internal server error
  */
-router.post("/createRecipe", authMiddleware, upload.single("imageUrl"), validateRequest(recipeSchema), createRecipe);
+router.post('/createRecipe', authMiddleware, upload.single('imageUrl'), validateRequest(recipeSchema), createRecipe)
 
-router.patch("/recipe/:recipeId", authMiddleware, upload.single("imageUrl"), validateRequest(recipeSchema), updateRecipe);
+router.patch('/recipe/:recipeId', authMiddleware, upload.single('imageUrl'), validateRequest(recipeSchema), updateRecipe)
 
-router.delete("/recipe/:recipeId", authMiddleware, deleteRecipe);
+router.delete('/recipe/:recipeId', authMiddleware, deleteRecipe)
 
-router.delete("/recipe/images/:recipeId", authMiddleware, deleteRecipeImages);
+router.delete('/recipe/images/:recipeId', authMiddleware, deleteRecipeImages)
 
-export default router;
+export default router

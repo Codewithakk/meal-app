@@ -24,3 +24,4 @@ pnpm-debug.log*
 
 # 📦 Ignore Render & build cache (optional)
 .cache/
+package-lock.json

@@ -1,10 +1,10 @@
-import express from "express";
-import { addFeedback, askQuestion, getUserMessages } from "../../controllers/smartMeal/smartMeal.controller";
-import { authMiddleware } from "../../middlewares/auth.middleware";
-import validateRequest from "../../middlewares/validateRequest";
-import { SmartMealFeedBackSchema } from "../../validations/smartMeal.validation";
+import express from 'express'
+import { addFeedback, askQuestion, getUserMessages } from '../../controllers/smartMeal/smartMeal.controller'
+import { authMiddleware } from '../../middlewares/auth.middleware'
+import validateRequest from '../../middlewares/validateRequest'
+import { SmartMealFeedBackSchema } from '../../validations/smartMeal.validation'
 
-const router = express.Router();
+const router = express.Router()
 
 /**
  * @swagger
@@ -45,7 +45,7 @@ const router = express.Router();
  *       500:
  *         description: Internal server error
  */
-router.post("/ask", authMiddleware, askQuestion);
+router.post('/ask', authMiddleware, askQuestion)
 
 /**
  * @swagger
@@ -73,7 +73,7 @@ router.post("/ask", authMiddleware, askQuestion);
  *                         type: string
  *                         example: "Oatmeal with fruits is a great choice for energy."
  */
-router.get("/ask", authMiddleware, getUserMessages);
+router.get('/ask', authMiddleware, getUserMessages)
 
 /**
  * @swagger
@@ -105,6 +105,6 @@ router.get("/ask", authMiddleware, getUserMessages);
  *       400:
  *         description: Bad request - Invalid feedback or message ID
  */
-router.patch("/ask/:messageId", authMiddleware, validateRequest(SmartMealFeedBackSchema), addFeedback);
+router.patch('/ask/:messageId', authMiddleware, validateRequest(SmartMealFeedBackSchema), addFeedback)
 
-export default router;
+export default router

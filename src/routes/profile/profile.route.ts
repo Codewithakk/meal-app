@@ -1,12 +1,12 @@
-import { Router } from "express";
-import { authMiddleware } from "../../middlewares/auth.middleware";
-import upload from '../../config/multerConfig';
-import { changePassword, editUserProfile, getUserProfile, toggleNotification } from "../../controllers/profile/profile.controller";
-import { updateInfo, getInfo, createInfo } from "../../controllers/info.controller";
-import validateRequest from "../../middlewares/validateRequest";
-import { profileUpdateSchema } from "../../validations/profileDetails.validation";
+import { Router } from 'express'
+import { authMiddleware } from '../../middlewares/auth.middleware'
+import upload from '../../config/multerConfig'
+import { changePassword, editUserProfile, getUserProfile, toggleNotification } from '../../controllers/profile/profile.controller'
+import { updateInfo, getInfo, createInfo } from '../../controllers/info.controller'
+import validateRequest from '../../middlewares/validateRequest'
+import { profileUpdateSchema } from '../../validations/profileDetails.validation'
 
-const router = Router();
+const router = Router()
 
 /**
  * @swagger
@@ -74,7 +74,7 @@ const router = Router();
  *       401:
  *         description: Unauthorized – Invalid or missing token
  */
-router.patch("/", authMiddleware, validateRequest(profileUpdateSchema), upload.single('userProfile'), editUserProfile);
+router.patch('/', authMiddleware, validateRequest(profileUpdateSchema), upload.single('userProfile'), editUserProfile)
 
 /**
  * @swagger
@@ -108,12 +108,12 @@ router.patch("/", authMiddleware, validateRequest(profileUpdateSchema), upload.s
  *       500:
  *         description: Internal server error
  */
-router.get("/", authMiddleware, getUserProfile);
+router.get('/', authMiddleware, getUserProfile)
 
-router.put("/change-password", authMiddleware, changePassword);
-router.put("/toggle-notification", authMiddleware, toggleNotification);
-router.get('/info/:type', getInfo);
-router.post('/info/:type', upload.single('img'), authMiddleware, createInfo);
-router.put('/info/:type', updateInfo);
+router.put('/change-password', authMiddleware, changePassword)
+router.put('/toggle-notification', authMiddleware, toggleNotification)
+router.get('/info/:type', getInfo)
+router.post('/info/:type', upload.single('img'), authMiddleware, createInfo)
+router.put('/info/:type', updateInfo)
 
-export default router;
+export default router

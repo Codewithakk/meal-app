@@ -1,156 +1,163 @@
-import { NextFunction, Request, Response } from "express";
-import httpResponse from "../../utils/httpResponse";
-import httpError from "../../utils/httpError";
-import { Coupon } from "../../models/coupon.model";
-import { checkUserIsExist } from "../profile/profile.controller";
-import sendEmail from "../../utils/sendEmail";
+import { NextFunction, Request, Response } from 'express'
+import httpResponse from '../../utils/httpResponse'
+import httpError from '../../utils/httpError'
+import { Coupon } from '../../models/coupon.model'
+import { checkUserIsExist } from '../profile/profile.controller'
+import sendEmail from '../../utils/sendEmail'
 
 export const checkCouponExist = async (couponId: string, req: Request, res: Response) => {
     const couponExist = await Coupon.findById(couponId)
     if (!couponExist) {
-        return httpResponse(req, res, 404, "Coupon not found.")
+        return httpResponse(req, res, 404, 'Coupon not found.')
     }
     return couponExist
 }
 
 export const createCoupon = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const userId = req.user?.userId;
-        const { code, discountType, discountAmount, expirationDate, usageLimit, usedCount, isActive } = req.body;
+        const userId = req.user?.userId
+        const { code, discountType, discountAmount, expirationDate, usageLimit, usedCount, isActive } = req.body
 
-        const userExist = await checkUserIsExist(userId!, req, res);
+        const userExist = await checkUserIsExist(userId!, req, res)
         if (!userExist) {
-            return; // Exit early if user does not exist
+            return // Exit early if user does not exist
         }
 
         const couponExist = await Coupon.findOne({ code })
         if (couponExist) {
-            return httpResponse(req, res, 400, "Coupon code already exists.");
+            return httpResponse(req, res, 400, 'Coupon code already exists.')
         }
 
         const coupon = await Coupon.create({
-            code, discountType, discountAmount, expirationDate, usageLimit, usedCount, isActive
+            code,
+            discountType,
+            discountAmount,
+            expirationDate,
+            usageLimit,
+            usedCount,
+            isActive
         })
 
-        return httpResponse(req, res, 201, "Coupon created successfully.", { coupon })
-
+        return httpResponse(req, res, 201, 'Coupon created successfully.', { coupon })
     } catch (error) {
-        return httpError(next, error, req, 500);
+        return httpError(next, error, req, 500)
     }
 }
 
 export const updateCoupon = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const userId = req.user?.userId;
+        const userId = req.user?.userId
         const { couponId } = req.params
-        const { code, discountType, discountAmount, expirationDate, usageLimit, usedCount, isActive } = req.body;
+        const { code, discountType, discountAmount, expirationDate, usageLimit, usedCount, isActive } = req.body
 
-        const userExist = await checkUserIsExist(userId!, req, res);
+        const userExist = await checkUserIsExist(userId!, req, res)
         if (!userExist) {
-            return; // Exit early if user does not exist
+            return // Exit early if user does not exist
         }
 
-        const couponExist = await checkCouponExist(couponId!, req, res);
+        const couponExist = await checkCouponExist(couponId!, req, res)
         if (!couponExist) {
-            return;
+            return
         }
 
-        await Coupon.updateOne({ _id: couponId }, {
-            $set: {
-                code, discountType, discountAmount, expirationDate, usageLimit, usedCount, isActive
+        await Coupon.updateOne(
+            { _id: couponId },
+            {
+                $set: {
+                    code,
+                    discountType,
+                    discountAmount,
+                    expirationDate,
+                    usageLimit,
+                    usedCount,
+                    isActive
+                }
             }
-        })
+        )
 
-        return httpResponse(req, res, 200, "Coupon updated successfully.")
-
+        return httpResponse(req, res, 200, 'Coupon updated successfully.')
     } catch (error) {
-        return httpError(next, error, req, 500);
+        return httpError(next, error, req, 500)
     }
 }
 
 export const deleteCoupon = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const userId = req.user?.userId;
+        const userId = req.user?.userId
         const { couponId } = req.params
 
-        const userExist = await checkUserIsExist(userId!, req, res);
+        const userExist = await checkUserIsExist(userId!, req, res)
         if (!userExist) {
-            return; // Exit early if user does not exist
+            return // Exit early if user does not exist
         }
 
-        const couponExist = await checkCouponExist(couponId!, req, res);
+        const couponExist = await checkCouponExist(couponId!, req, res)
         if (!couponExist) {
-            return;
+            return
         }
 
         await Coupon.deleteOne({ _id: couponId })
 
-        return httpResponse(req, res, 200, "Coupon deleted successfully.")
-
+        return httpResponse(req, res, 200, 'Coupon deleted successfully.')
     } catch (error) {
-        return httpError(next, error, req, 500);
+        return httpError(next, error, req, 500)
     }
 }
 
 export const deleteManyCoupon = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const userId = req.user?.userId;
+        const userId = req.user?.userId
         const { couponIds } = req.body
 
-        const userExist = await checkUserIsExist(userId!, req, res);
+        const userExist = await checkUserIsExist(userId!, req, res)
         if (!userExist) {
-            return; // Exit early if user does not exist
+            return // Exit early if user does not exist
         }
 
         await Coupon.deleteMany({ _id: { $in: couponIds } })
 
-        return httpResponse(req, res, 200, "Coupons deleted successfully.")
-
+        return httpResponse(req, res, 200, 'Coupons deleted successfully.')
     } catch (error) {
-        return httpError(next, error, req, 500);
+        return httpError(next, error, req, 500)
     }
 }
 
 export const getCouponList = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const userId = req.user?.userId;
+        const userId = req.user?.userId
 
-        const page = parseInt(req.query.page as string) || 1;
-        const limit = parseInt(req.query.limit as string) || 10;
-        const search = (req.query.search as string || '').trim();
-        const sort = (req.query.sort as string || '').trim();
+        const page = parseInt(req.query.page as string) || 1
+        const limit = parseInt(req.query.limit as string) || 10
+        const search = ((req.query.search as string) || '').trim()
+        const sort = ((req.query.sort as string) || '').trim()
 
-        const userExist = await checkUserIsExist(userId!, req, res);
+        const userExist = await checkUserIsExist(userId!, req, res)
         if (!userExist) {
-            return;
+            return
         }
 
-        const searchFilter: any = {};
+        const searchFilter: { $or: Record<string, unknown>[] } = { $or: [] }
         if (search) {
-            const regex = new RegExp(search, 'i'); // case-insensitive search
-            searchFilter.$or = [{ code: regex }, { discountType: regex }];
+            const regex = new RegExp(search, 'i') // case-insensitive search
+            searchFilter.$or = [{ code: regex }, { discountType: regex }]
 
-            const parsedNumber = Number(search);
+            const parsedNumber = Number(search)
             if (!isNaN(parsedNumber)) {
-                searchFilter.$or.push(
-                    { discountAmount: parsedNumber },
-                    { usageLimit: parsedNumber },
-                    { usedCount: parsedNumber }
-                );
+                searchFilter.$or.push({ discountAmount: parsedNumber }, { usageLimit: parsedNumber }, { usedCount: parsedNumber })
             }
 
             if (search.toLowerCase() === 'true' || search.toLowerCase() === 'false') {
-                searchFilter.$or.push({ isActive: search.toLowerCase() === 'true' });
+                searchFilter.$or.push({ isActive: search.toLowerCase() === 'true' })
             }
         }
 
         const totalCount = await Coupon.countDocuments(searchFilter)
 
-        const totalPages = Math.max(1, Math.ceil(totalCount / limit));;
-        const validPage = Math.min(Math.max(1, page), totalPages);
-        const skip = (validPage - 1) * limit;
+        const totalPages = Math.max(1, Math.ceil(totalCount / limit))
+        const validPage = Math.min(Math.max(1, page), totalPages)
+        const skip = (validPage - 1) * limit
 
-        const usedCouponIds = userExist?.usedCoupons ? userExist?.usedCoupons.map(c => c.coupon) : [];
+        const usedCouponIds = userExist?.usedCoupons ? userExist?.usedCoupons.map((c) => c.coupon) : []
 
         const couponList = await Coupon.aggregate([
             { $match: searchFilter },
@@ -171,9 +178,9 @@ export const getCouponList = async (req: Request, res: Response, next: NextFunct
                     createdAt: 1
                 }
             }
-        ]);
+        ])
 
-        return httpResponse(req, res, 200, "Coupon Fetched Successfully", {
+        return httpResponse(req, res, 200, 'Coupon Fetched Successfully', {
             pagination: {
                 total: totalCount,
                 page,
@@ -181,44 +188,43 @@ export const getCouponList = async (req: Request, res: Response, next: NextFunct
                 totalPages: totalPages
             },
             couponList
-        });
-
+        })
     } catch (error) {
-        return httpError(next, error, req, 500);
+        return httpError(next, error, req, 500)
     }
 }
 
 export const claimReward = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const userId = req.user?.userId;
+        const userId = req.user?.userId
         const { couponId } = req.params
-        const { userEmail } = req.body;
+        const { userEmail } = req.body
 
-        const userExist = await checkUserIsExist(userId!, req, res);
+        const userExist = await checkUserIsExist(userId!, req, res)
         if (!userExist) {
-            return;
+            return
         }
 
-        const couponExist = await checkCouponExist(couponId!, req, res);
+        const couponExist = await checkCouponExist(couponId!, req, res)
         if (!couponExist) {
-            return;
+            return
         }
 
-        if (userExist.usedCoupons && userExist?.usedCoupons.find((coupon: any) => coupon.coupon.toString() === couponId)) {
-            return httpResponse(req, res, 400, "Coupon already used.")
+        if (userExist.usedCoupons && userExist?.usedCoupons.find((coupon: { coupon: string }) => coupon.coupon.toString() === couponId)) {
+            return httpResponse(req, res, 400, 'Coupon already used.')
         }
 
         if (couponExist.expirationDate < new Date()) {
-            return httpResponse(req, res, 400, "Coupon expired.")
+            return httpResponse(req, res, 400, 'Coupon expired.')
         }
 
         if (couponExist.isActive === false) {
-            return httpResponse(req, res, 400, "Coupon is not active.")
+            return httpResponse(req, res, 400, 'Coupon is not active.')
         }
 
         await Coupon.updateOne({ _id: couponId }, { $set: { usedCount: couponExist.usedCount + 1 } })
 
-        const fullName = `${userExist.get('firstName')} ${userExist.get('lastName') || ''}`.trim();
+        const fullName = `${userExist.get('firstName')} ${userExist.get('lastName') || ''}`.trim()
 
         await userExist.updateOne({ $push: { usedCoupons: { coupon: couponId } } })
 
@@ -255,13 +261,12 @@ export const claimReward = async (req: Request, res: Response, next: NextFunctio
                     <p style="font-size: 14px; color: #777;">Bon appétit!<br><strong>The Mood Meal Team</strong></p>
                 </div>
             </body>
-        </html>
-        `;
+        </html>`
 
-        await sendEmail(userEmail, "🎉 You have claimed your reward!", couponTemplate);
+        await sendEmail(userEmail, '🎉 You have claimed your reward!', couponTemplate)
 
-        return httpResponse(req, res, 200, "Coupon claimed successfully.")
+        return httpResponse(req, res, 200, 'Coupon claimed successfully.')
     } catch (error) {
-        return httpError(next, error, req, 500);
+        return httpError(next, error, req, 500)
     }
 }

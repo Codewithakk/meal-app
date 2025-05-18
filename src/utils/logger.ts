@@ -26,14 +26,12 @@ const colorizeLevel = (level: string) => {
 }
 
 const consoleLogFormat = format.printf((info) => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const { level, message, timestamp, meta = {} } = info
 
     const customLevel = colorizeLevel(level.toUpperCase())
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
     const customTimestamp = green(timestamp as string)
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const customMessage = message
 
     const customMeta = util.inspect(meta, {
@@ -61,9 +59,9 @@ const consoleTransport = (): Array<ConsoleTransportInstance> => {
 }
 
 const fileLogFormat = format.printf((info) => {
-    const { level, message, timestamp, meta = {} } = info;
+    const { level, message, timestamp, meta = {} } = info
 
-    const logMeta: Record<string, unknown> = {};
+    const logMeta: Record<string, unknown> = {}
 
     // Ensure meta is treated as an object
     for (const [key, value] of Object.entries(meta as Record<string, unknown>)) {
@@ -71,10 +69,10 @@ const fileLogFormat = format.printf((info) => {
             logMeta[key] = {
                 name: value.name,
                 message: value.message,
-                trace: value.stack || '',
-            };
+                trace: value.stack || ''
+            }
         } else {
-            logMeta[key] = value;
+            logMeta[key] = value
         }
     }
 
@@ -82,12 +80,11 @@ const fileLogFormat = format.printf((info) => {
         level: level.toUpperCase(),
         message,
         timestamp,
-        meta: logMeta,
-    };
+        meta: logMeta
+    }
 
-    return JSON.stringify(logData, null, 4);
-});
-
+    return JSON.stringify(logData, null, 4)
+})
 
 const FileTransport = (): Array<FileTransportInstance> => {
     return [

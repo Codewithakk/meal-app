@@ -1,8 +1,8 @@
-import { Router } from "express";
-import { authMiddleware } from '../../middlewares/auth.middleware';
-import { getUserFriendsStreakList, getUserStreakRate, getUserWaysStreakList } from "../../controllers/streak/streak.controller";
+import { Router } from 'express'
+import { authMiddleware } from '../../middlewares/auth.middleware'
+import { getUserFriendsStreakList, getUserStreakRate, getUserWaysStreakList } from '../../controllers/streak/streak.controller'
 
-const router = Router();
+const router = Router()
 /**
  * @swagger
  * tags:
@@ -68,7 +68,7 @@ const router = Router();
  *       401:
  *         description: Unauthorized - Invalid or missing token
  */
-router.get("/mood-streak/list", authMiddleware, getUserWaysStreakList);
+router.get('/mood-streak/list', authMiddleware, getUserWaysStreakList)
 
 /**
  * @swagger
@@ -134,7 +134,7 @@ router.get("/mood-streak/list", authMiddleware, getUserWaysStreakList);
  *       401:
  *         description: Unauthorized - Invalid or missing token
  */
-router.get("/mood-streak/friends/list", authMiddleware, getUserFriendsStreakList);
+router.get('/mood-streak/friends/list', authMiddleware, getUserFriendsStreakList)
 
 /**
  * @swagger
@@ -158,6 +158,6 @@ router.get("/mood-streak/friends/list", authMiddleware, getUserFriendsStreakList
  *       401:
  *         description: Unauthorized
  */
-router.get("/steak/user", authMiddleware, getUserStreakRate);
+router.get('/steak/user', authMiddleware, getUserStreakRate)
 
-export default router;
+export default router

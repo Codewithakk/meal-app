@@ -1,8 +1,8 @@
-import { Router } from "express";
-import { authMiddleware } from "../../middlewares/auth.middleware";
-import { addAndRemoveFriend, getUserByFriendList, getUserList } from "../../controllers/community/user.controller";
+import { Router } from 'express'
+import { authMiddleware } from '../../middlewares/auth.middleware'
+import { addAndRemoveFriend, getUserByFriendList, getUserList } from '../../controllers/community/user.controller'
 
-const router = Router();
+const router = Router()
 
 /**
  * @swagger
@@ -63,7 +63,7 @@ const router = Router();
  *       500:
  *         description: Server error.
  */
-router.patch('/friend/:friendId', authMiddleware, addAndRemoveFriend);
+router.patch('/friend/:friendId', authMiddleware, addAndRemoveFriend)
 
 /**
  * @swagger
@@ -117,7 +117,7 @@ router.patch('/friend/:friendId', authMiddleware, addAndRemoveFriend);
  *       500:
  *         description: Server error
  */
-router.get('/list', authMiddleware, getUserList);
+router.get('/list', authMiddleware, getUserList)
 
 /**
  * @swagger
@@ -171,6 +171,6 @@ router.get('/list', authMiddleware, getUserList);
  *       500:
  *         description: Server error
  */
-router.get('/friend/list', authMiddleware, getUserByFriendList);
+router.get('/friend/list', authMiddleware, getUserByFriendList)
 
-export default router;
+export default router

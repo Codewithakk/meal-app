@@ -1,10 +1,30 @@
-import express from 'express';
-import { createPost, getPosts, sharePost, viewPost, feed, likePost, dislikePost, getCommentCount, addComment, updateComment, deleteComment, getCommentById, getLinkCount, getDisLikeCount, deletePost, updatePost, deletePostImage, createPostForChallenge, getChallengePosts } from '../../controllers/community/userPost.controller';
-import upload from '../../config/multerConfig';
-import { authMiddleware } from '../../middlewares/auth.middleware';
-import validateRequest from '../../middlewares/validateRequest';
-import { addCommentSchema, addPostSchema } from '../../validations/community.validation';
-const router = express.Router();
+import express from 'express'
+import {
+    createPost,
+    getPosts,
+    sharePost,
+    viewPost,
+    feed,
+    likePost,
+    dislikePost,
+    getCommentCount,
+    addComment,
+    updateComment,
+    deleteComment,
+    getCommentById,
+    getLinkCount,
+    getDisLikeCount,
+    deletePost,
+    updatePost,
+    deletePostImage,
+    createPostForChallenge,
+    getChallengePosts
+} from '../../controllers/community/userPost.controller'
+import upload from '../../config/multerConfig'
+import { authMiddleware } from '../../middlewares/auth.middleware'
+import validateRequest from '../../middlewares/validateRequest'
+import { addCommentSchema, addPostSchema } from '../../validations/community.validation'
+const router = express.Router()
 
 /**
  * @swagger
@@ -70,7 +90,7 @@ const router = express.Router();
  *       500:
  *         description: Internal server error
  */
-router.post('/:groupId/post', authMiddleware, upload.array('images'), validateRequest(addPostSchema), createPost);
+router.post('/:groupId/post', authMiddleware, upload.array('images'), validateRequest(addPostSchema), createPost)
 
 /**
  * @swagger
@@ -141,7 +161,7 @@ router.post('/:groupId/post', authMiddleware, upload.array('images'), validateRe
  *       500:
  *         description: Internal server error
  */
-router.get('/posts', authMiddleware, getPosts);
+router.get('/posts', authMiddleware, getPosts)
 
 /**
  * @swagger
@@ -178,7 +198,7 @@ router.get('/posts', authMiddleware, getPosts);
  *       500:
  *         description: Internal server error
  */
-router.post('/post/share/:postId', authMiddleware, sharePost);
+router.post('/post/share/:postId', authMiddleware, sharePost)
 
 /**
  * @swagger
@@ -215,7 +235,7 @@ router.post('/post/share/:postId', authMiddleware, sharePost);
  *       500:
  *         description: Internal server error
  */
-router.put('/post/view/:postId', authMiddleware, viewPost);
+router.put('/post/view/:postId', authMiddleware, viewPost)
 
 /**
  * @swagger
@@ -256,7 +276,7 @@ router.put('/post/view/:postId', authMiddleware, viewPost);
  *       500:
  *         description: Internal server error
  */
-router.post("/post/:postId/like", authMiddleware, likePost);
+router.post('/post/:postId/like', authMiddleware, likePost)
 
 /**
  * @swagger
@@ -297,7 +317,7 @@ router.post("/post/:postId/like", authMiddleware, likePost);
  *       500:
  *         description: Internal server error
  */
-router.post("/post/:postId/dislike", authMiddleware, dislikePost);
+router.post('/post/:postId/dislike', authMiddleware, dislikePost)
 
 /**
  * @swagger
@@ -342,7 +362,7 @@ router.post("/post/:postId/dislike", authMiddleware, dislikePost);
  *       '401':
  *         description: Unauthorized
  */
-router.post("/post/:postId/comment", authMiddleware, validateRequest(addCommentSchema), addComment);
+router.post('/post/:postId/comment', authMiddleware, validateRequest(addCommentSchema), addComment)
 
 /**
  * @swagger
@@ -393,7 +413,7 @@ router.post("/post/:postId/comment", authMiddleware, validateRequest(addCommentS
  *       '401':
  *         description: Unauthorized
  */
-router.patch("/post/:postId/comment/:commentId", authMiddleware, validateRequest(addCommentSchema), updateComment);
+router.patch('/post/:postId/comment/:commentId', authMiddleware, validateRequest(addCommentSchema), updateComment)
 
 /**
  * @swagger
@@ -433,7 +453,7 @@ router.patch("/post/:postId/comment/:commentId", authMiddleware, validateRequest
  *       '401':
  *         description: Unauthorized
  */
-router.delete("/post/:postId/comment/:commentId", authMiddleware, deleteComment);
+router.delete('/post/:postId/comment/:commentId', authMiddleware, deleteComment)
 
 /**
  * @swagger
@@ -481,7 +501,7 @@ router.delete("/post/:postId/comment/:commentId", authMiddleware, deleteComment)
  *       '401':
  *         description: Unauthorized
  */
-router.get("/post/:postId/comment/:commentId", authMiddleware, getCommentById);
+router.get('/post/:postId/comment/:commentId', authMiddleware, getCommentById)
 
 /**
  * @swagger
@@ -513,7 +533,7 @@ router.get("/post/:postId/comment/:commentId", authMiddleware, getCommentById);
  *       '401':
  *         description: Unauthorized
  */
-router.get("/post/:postId/comments/count", authMiddleware, getCommentCount);
+router.get('/post/:postId/comments/count', authMiddleware, getCommentCount)
 
 /**
  * @swagger
@@ -545,7 +565,7 @@ router.get("/post/:postId/comments/count", authMiddleware, getCommentCount);
  *       '401':
  *         description: Unauthorized
  */
-router.get("/post/:postId/like/count", authMiddleware, getLinkCount);
+router.get('/post/:postId/like/count', authMiddleware, getLinkCount)
 
 /**
  * @swagger
@@ -577,7 +597,7 @@ router.get("/post/:postId/like/count", authMiddleware, getLinkCount);
  *       '401':
  *         description: Unauthorized
  */
-router.get("/post/:postId/dislike/count", authMiddleware, getDisLikeCount);
+router.get('/post/:postId/dislike/count', authMiddleware, getDisLikeCount)
 
 /**
  * @swagger
@@ -603,7 +623,7 @@ router.get("/post/:postId/dislike/count", authMiddleware, getDisLikeCount);
  *       '400':
  *         description: Invalid request (e.g., wrong format)
  */
-router.delete("/post/:postId/", authMiddleware, deletePost);
+router.delete('/post/:postId/', authMiddleware, deletePost)
 
 /**
  * @swagger
@@ -643,7 +663,7 @@ router.delete("/post/:postId/", authMiddleware, deletePost);
  *       '400':
  *         description: Bad request (e.g., invalid image URL format)
  */
-router.delete("/post/images/:postId/", authMiddleware, deletePostImage);
+router.delete('/post/images/:postId/', authMiddleware, deletePostImage)
 
 /**
  * @swagger
@@ -690,7 +710,7 @@ router.delete("/post/images/:postId/", authMiddleware, deletePostImage);
  *       '401':
  *         description: Unauthorized
  */
-router.patch("/post/:postId/", authMiddleware, validateRequest(addPostSchema), updatePost);
+router.patch('/post/:postId/', authMiddleware, validateRequest(addPostSchema), updatePost)
 
 /**
  * @swagger
@@ -705,10 +725,16 @@ router.patch("/post/:postId/", authMiddleware, validateRequest(addPostSchema), u
  *       400:
  *         description: Invalid request
  */
-router.get('/feed', authMiddleware, feed);
+router.get('/feed', authMiddleware, feed)
 
-router.post('/:groupId/post/challenge/:groupchallengeId', authMiddleware, upload.array('images'), validateRequest(addPostSchema), createPostForChallenge);
+router.post(
+    '/:groupId/post/challenge/:groupchallengeId',
+    authMiddleware,
+    upload.array('images'),
+    validateRequest(addPostSchema),
+    createPostForChallenge
+)
 
-router.get('/:groupId/posts/challenge', authMiddleware, getChallengePosts);
+router.get('/:groupId/posts/challenge', authMiddleware, getChallengePosts)
 
-export default router;
+export default router
